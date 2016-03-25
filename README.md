@@ -84,6 +84,27 @@ class MyComponent extends React.Component {
 }
 ```
 
+## Behavior Note :memo:
+
+### When `key` already has `prefix`
+
+`suitcss-classnames` don't throw error, just ignore this.
+
+```js
+const className = suitClassNames({
+    component: "ComponentName",
+    // key alredy has "is-" prefix 
+    states: {
+        "is-active": true
+    }
+});
+const classes = className.split(/\s+/);
+assert.equal(classes.length, 2);
+assert(classes.indexOf("ComponentName") !== -1);
+// don't add duplicated prefix, it will be "is-active"
+assert(classes.indexOf("is-active") !== -1);
+```
+
 ## Tests
 
     npm test

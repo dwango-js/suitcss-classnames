@@ -49,6 +49,19 @@ suitClassNames({
         (descendant ? `-${descendant}` : "")
     );
 
+    const addPrefix = function (prefix, key) {
+        const index = key.indexOf(prefix);
+        // if don't contain prefix, add prefix
+        if (index === -1) {
+            return prefix + key;
+        } else if (index === 0) {
+            // if key start with prefix, don't add prefix
+            return key;
+        } else {
+            // if key has prefix, but it is not prefix, add prefix
+            return prefix + key;
+        }
+    };
     const map = (args, prefix) => {
         if (!args) {
             return false;
@@ -65,12 +78,15 @@ suitClassNames({
          */
         if (!Array.isArray(args) && typeof args === "object") {
             return Object.keys(args).reduce((result, key) => {
-                result[prefix + key] = args[key];
+                const prefixedKey = addPrefix(prefix, key);
+                result[prefixedKey] = args[key];
                 return result;
             }, {});
         }
         const array = Array.isArray(args) ? args : [args];
-        return array.map(x => x && (prefix + x));
+        return array.map((key) => {
+            return addPrefix(prefix, key);
+        });
     };
 
     const classNamesMap = [

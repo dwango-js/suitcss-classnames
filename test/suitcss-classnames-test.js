@@ -146,4 +146,20 @@ describe("suitcss-classnames", () => {
             assert(classes.indexOf("u-m20") !== -1);
         });
     });
+    context("When key already has prefix", () => {
+        it("should not add prefix", () => {
+            const className = suitClassNames({
+                component: "ComponentName",
+                states: {
+                    "is-active": true
+                },
+                utilities: ["u-inlineBlock"]
+            });
+            const classes = className.split(/\s+/);
+            assert.equal(classes.length, 3);
+            assert(classes.indexOf("ComponentName") !== -1);
+            assert(classes.indexOf("is-active") !== -1);
+            assert(classes.indexOf("u-inlineBlock") !== -1);
+        });
+    });
 });
