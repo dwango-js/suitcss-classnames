@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "es2015"
+  ],
+  "plugins": [
+    "add-module-exports"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "jsdoc-to-assert"
+      ]
+    }
+  }
+}
