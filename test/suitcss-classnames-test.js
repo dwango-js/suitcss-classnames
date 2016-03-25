@@ -162,4 +162,18 @@ describe("suitcss-classnames", () => {
             assert(classes.indexOf("u-inlineBlock") !== -1);
         });
     });
+    context("When property has typo", () => {
+        it("should throw error", () => {
+            assert.throws(() => {
+                suitClassNames({
+                    component: "ComponentName",
+                    // typo => states
+                    state: {
+                        "is-active": true
+                    }
+                });
+            });
+        });
+    });
+
 });

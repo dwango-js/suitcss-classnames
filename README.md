@@ -29,6 +29,7 @@ const SuitCSSObject = {
 `component` property is required, other properties is optional.
 
 ```js
+import suitClassNames from "suitcss-classnames";
 const className = suitClassNames({
     namespace: "ns",
     component: "ComponentName", // <= require
@@ -68,6 +69,7 @@ console.log(classes);
 If you use it in react component, write following pattern:
 
 ```js
+import suitClassNames from "suitcss-classnames";
 class MyComponent extends React.Component {
     render() {
         const className = suitClassNames({
@@ -91,6 +93,7 @@ class MyComponent extends React.Component {
 `suitcss-classnames` don't throw error, just ignore this.
 
 ```js
+import suitClassNames from "suitcss-classnames";
 const className = suitClassNames({
     component: "ComponentName",
     // key alredy has "is-" prefix 
@@ -104,6 +107,23 @@ assert(classes.indexOf("ComponentName") !== -1);
 // don't add duplicated prefix, it will be "is-active"
 assert(classes.indexOf("is-active") !== -1);
 ```
+
+### suitcss-classnames don't allowed the key name:"state"
+
+`suitcss-classnames` don't allowed the key name that except "namespace", "descendant", "component", "modifiers", "states", "utilities".
+
+```js
+import suitClassNames from "suitcss-classnames";
+suitClassNames({
+    component: "ComponentName",
+    // typo => states
+    state: {
+        "is-active": true
+    }
+});
+```
+
+The code throw error, because it contain a typo(`state` => `states`).
 
 ## Tests
 

@@ -2,6 +2,8 @@
 "use strict";
 import ObjectAssign from "object.assign";
 import classNames from "classnames";
+// Allowed keyword list
+const ALLOW_KEY_NAMES = ["namespace", "descendant", "component", "modifiers", "states", "utilities"];
 const DefaultSuitCSSObject = {
     namespace: "",  // class="namespace-Component"
     descendant: "", // class="Component-descendant"
@@ -11,13 +13,18 @@ const DefaultSuitCSSObject = {
     utilities: []  // class="u-utility Component"
 };
 /**
- * <Component>--modifier
- * const names = SuitCSSUtil.createClassNames({
- *           component: this.constructor.name,
- *           modifiers: [this.props.align, this.props.verticalAlign, this.props.gutter]
- * });
- *
+ * @param {Object} object
  */
+const validateSuitCSSObject = function validateSuitCSSObject(object) {
+    const keys = Object.keys(object);
+    keys.forEach(key => {
+        if (ALLOW_KEY_NAMES.indexOf(key) === -1) {
+            throw new Error(`suitcss-classnames don't allowed the key name:"${key}"
+You can use one of "${ALLOW_KEY_NAMES.join('", "')}" as a key name.
+`)
+        }
+    });
+};
 /**
  * Create class names string from object.
  * The option object should have `component` property.
@@ -41,6 +48,7 @@ suitClassNames({
 });
 `);
     }
+    validateSuitCSSObject(suitCSSObject);
     const suitCSS = ObjectAssign({}, DefaultSuitCSSObject, suitCSSObject);
     const {namespace, descendant, component, modifiers, states, utilities} = suitCSS;
     const base = (
@@ -49,7 +57,7 @@ suitClassNames({
         (descendant ? `-${descendant}` : "")
     );
 
-    const addPrefix = function (prefix, key) {
+    const addPrefix = function addPrefix(prefix, key) {
         const index = key.indexOf(prefix);
         // if don't contain prefix, add prefix
         if (index === -1) {
