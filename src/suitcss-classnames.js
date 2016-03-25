@@ -19,12 +19,14 @@ const DefaultSuitCSSObject = {
  *
  */
 /**
- *
+ * Create class names string from object.
+ * The option object should have `component` property.
+ * It it based name of the class names.
  * @param {{
- * namespace: string, descendant: ?string, component: ?string,
+ * namespace: ?string, descendant: ?string, component: string,
  * modifiers: (?string[] | ?Object), states: (?string[] | ?Object), utilities: (?string[] | ?Object)
  * }} suitCSSObject
- * @returns {string}
+ * @returns {string} class names string. it could be assigned to `class` attribute of element.
  */
 export default function suitClassNames(suitCSSObject) {
     if (suitCSSObject == null) {
