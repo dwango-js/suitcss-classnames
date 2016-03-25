@@ -1,6 +1,6 @@
-# suitcss-classnames
+# suitcss-classnames [![Build Status](https://travis-ci.org/dwango-js/suitcss-classnames.svg?branch=master)](https://travis-ci.org/dwango-js/suitcss-classnames)
 
-SuitCSS compatible classnames builder libray.
+Class names builder library compatible for Suit CSS naming conventions.
 
 - [SUIT CSS: style tools for UI components](http://suitcss.github.io/ "SUIT CSS: style tools for UI components")
 - [SUIT CSS naming conventions](https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md "SUIT CSS naming conventions")
@@ -13,7 +13,7 @@ SuitCSS compatible classnames builder libray.
 
 ### `suitClassNames(suitCSSObject): string`
 
-suitCSSObject is a following object:
+`suitCSSObject` is a following object:
 
 ```js
 const SuitCSSObject = {
@@ -63,7 +63,7 @@ console.log(classes);
 // [ 'ComponentName', 'is-active' ]
 ```
 
-### use case
+### Use case
 
 If you use it in react component, write following pattern:
 
