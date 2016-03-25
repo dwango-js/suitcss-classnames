@@ -2,13 +2,16 @@
   "presets": [
     "es2015"
   ],
-  "plugins": [
-    "add-module-exports"
-  ],
   "env": {
+    "production": {
+      "plugins": [
+        "add-module-exports"
+      ]
+    },
     "development": {
       "plugins": [
-        "jsdoc-to-assert"
+        "jsdoc-to-assert",
+        "add-module-exports"
       ]
     }
   }
