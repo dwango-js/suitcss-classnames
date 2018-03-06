@@ -1,7 +1,33 @@
 // LICENSE : MIT
 "use strict";
-import ObjectAssign from "object.assign";
-import classNames from "classnames";
+const ObjectAssign = require("object.assign");
+import classNames = require("classnames");
+export interface SuitCSSObject {
+    /**
+     * class="namespace-Component"
+     */
+    namespace?: string,
+    /**
+     * class="namespace-Component"
+     */
+    descendant?: string,
+    /**
+     * class="Component"
+     */
+    component: string,
+    /**
+     * class="Component--modifier"
+     */
+    modifiers?: string[] | { [index: string]: boolean },
+    /**
+     * class="Component is-state"
+     */
+    states?: string[] | { [index: string]: boolean },
+    /**
+     * class="u-utility Component"
+     */
+    utilities?: string[] | { [index: string]: boolean }
+}
 // Allowed keyword list
 const ALLOW_KEY_NAMES = ["namespace", "descendant", "component", "modifiers", "states", "utilities"];
 const DefaultSuitCSSObject = {
@@ -15,7 +41,7 @@ const DefaultSuitCSSObject = {
 /**
  * @param {Object} object
  */
-const validateSuitCSSObject = function validateSuitCSSObject(object) {
+const validateSuitCSSObject = function validateSuitCSSObject(object: {}) {
     const keys = Object.keys(object);
     keys.forEach(key => {
         if (ALLOW_KEY_NAMES.indexOf(key) === -1) {
@@ -35,11 +61,11 @@ You can use one of "${ALLOW_KEY_NAMES.join('", "')}" as a key name.
  * }} suitCSSObject
  * @returns {string} class names string. it could be assigned to `class` attribute of element.
  */
-export default function suitClassNames(suitCSSObject) {
-    if (suitCSSObject == null) {
+export function suitClassNames(suitCSSObject: SuitCSSObject) {
+    if (suitCSSObject === null) {
         throw new Error("require options object.");
     }
-    if (suitCSSObject.component == null) {
+    if (typeof suitCSSObject === "object" && suitCSSObject.component == null) {
         throw new Error(`require "component" option value.
 Please specify "component" value.
 
@@ -50,14 +76,14 @@ suitClassNames({
     }
     validateSuitCSSObject(suitCSSObject);
     const suitCSS = ObjectAssign({}, DefaultSuitCSSObject, suitCSSObject);
-    const {namespace, descendant, component, modifiers, states, utilities} = suitCSS;
+    const { namespace, descendant, component, modifiers, states, utilities } = suitCSS;
     const base = (
         (namespace ? `${namespace}-` : "") +
         component +
         (descendant ? `-${descendant}` : "")
     );
 
-    const addPrefix = function addPrefix(prefix, key) {
+    const addPrefix = (prefix: string, key: string) => {
         const index = key.indexOf(prefix);
         // if don't contain prefix, add prefix
         if (index === -1) {
@@ -70,7 +96,7 @@ suitClassNames({
             return prefix + key;
         }
     };
-    const map = (args, prefix) => {
+    const map = (args: string[] | { [index: string]: boolean; }, prefix: string) => {
         if (!args) {
             return false;
         }
@@ -85,7 +111,7 @@ suitClassNames({
             }
          */
         if (!Array.isArray(args) && typeof args === "object") {
-            return Object.keys(args).reduce((result, key) => {
+            return Object.keys(args).reduce((result: { [index: string]: string | boolean}, key) => {
                 const prefixedKey = addPrefix(prefix, key);
                 result[prefixedKey] = args[key];
                 return result;

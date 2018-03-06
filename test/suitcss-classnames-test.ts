@@ -1,7 +1,8 @@
-const assert = require("power-assert");
-import suitClassNames from "../src/suitcss-classnames";
+import * as assert from "assert";
+import { suitClassNames } from "../src/suitcss-classnames";
+
 describe("suitcss-classnames", () => {
-    context("all mix pattern", ()=> {
+    context("all mix pattern", () => {
         it("should return classname", () => {
             const className = suitClassNames({
                 namespace: "ns",
@@ -57,13 +58,13 @@ describe("suitcss-classnames", () => {
     });
     context("component", () => {
         context("when it is missing", () => {
-            it("should throw Error", ()=> {
+            it("should throw Error", () => {
                 assert.throws(() => {
-                    suitClassNames({});
+                    suitClassNames({} as any);
                 });
             });
         });
-        context("when set the option", function () {
+        context("when set the option", function() {
             it("should returned classnames include `ComponentName`", () => {
                 const names = suitClassNames({
                     component: "ComponentName"
@@ -164,13 +165,13 @@ describe("suitcss-classnames", () => {
     });
     context("When complex object and array", () => {
         it("should throw error", () => {
-            const UpperCase = (text) => {
-                return text.replace(/^[a-z]/g, function (val) {
+            const UpperCase = (text:string) => {
+                return text.replace(/^[a-z]/g, function(val) {
                     return val.toUpperCase();
                 });
             };
             const align = "left";
-            const alignNames = align ? `align${UpperCase(align)}` : undefined;
+            const alignNames = `align${UpperCase(align)}`;
             const className = suitClassNames({
                 component: "ComponentName",
                 modifiers: [alignNames]
@@ -191,7 +192,7 @@ describe("suitcss-classnames", () => {
                     state: {
                         "is-active": true
                     }
-                });
+                } as any);
             });
         });
     });
