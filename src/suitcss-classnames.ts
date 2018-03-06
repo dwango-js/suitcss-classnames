@@ -7,9 +7,9 @@ export interface SuitCSSObject {
     namespace?: string,  // class="namespace-Component"
     descendant?: string, // class="Component-descendant"
     component: string, // class="Component"
-    modifiers?: string[],  // class="Component--modifier"
+    modifiers?: string[] | { [index: string]: boolean },  // class="Component--modifier"
     states?: string[] | { [index: string]: boolean },     // class="Component is-state"
-    utilities?: string[]  // class="u-utility Component"
+    utilities?: string[] | { [index: string]: boolean }  // class="u-utility Component"
 }
 // Allowed keyword list
 const ALLOW_KEY_NAMES = ["namespace", "descendant", "component", "modifiers", "states", "utilities"];
