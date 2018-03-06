@@ -1,4 +1,3 @@
-// @ts-nocheck
 // LICENSE : MIT
 "use strict";
 const ObjectAssign = require("object.assign");
