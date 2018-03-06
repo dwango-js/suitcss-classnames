@@ -60,7 +60,7 @@ describe("suitcss-classnames", () => {
         context("when it is missing", () => {
             it("should throw Error", () => {
                 assert.throws(() => {
-                    suitClassNames({});
+                    suitClassNames({} as any);
                 });
             });
         });
@@ -165,13 +165,13 @@ describe("suitcss-classnames", () => {
     });
     context("When complex object and array", () => {
         it("should throw error", () => {
-            const UpperCase = (text) => {
+            const UpperCase = (text:string) => {
                 return text.replace(/^[a-z]/g, function(val) {
                     return val.toUpperCase();
                 });
             };
             const align = "left";
-            const alignNames = align ? `align${UpperCase(align)}` : undefined;
+            const alignNames = `align${UpperCase(align)}`;
             const className = suitClassNames({
                 component: "ComponentName",
                 modifiers: [alignNames]
@@ -192,7 +192,7 @@ describe("suitcss-classnames", () => {
                     state: {
                         "is-active": true
                     }
-                });
+                } as any);
             });
         });
     });
