@@ -124,6 +124,20 @@ describe("suitcss-classnames", () => {
                 assert(classes.indexOf("is-disable") === -1);
                 assert(classes.indexOf("is-active") !== -1);
             });
+            it("undefined | null value is treated as false", () => {
+                const className = suitClassNames({
+                    component: "ComponentName",
+                    states: {
+                        "disable_false": false,
+                        "disable_undefined": undefined,
+                        "disable_null": null,
+                    }
+                });
+                const classes = className.split(/\s+/);
+                assert.strictEqual(classes.indexOf("disable_false") , -1);
+                assert.strictEqual(classes.indexOf("disable_undefined") , -1);
+                assert.strictEqual(classes.indexOf("disable_null") , -1);
+            });
         });
     });
     context("utilities", () => {
