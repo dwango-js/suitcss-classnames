@@ -162,6 +162,26 @@ describe("suitcss-classnames", () => {
             assert(classes.indexOf("u-inlineBlock") !== -1);
         });
     });
+    context("When complex object and array", () => {
+        it("should throw error", () => {
+            const UpperCase = (text) => {
+                return text.replace(/^[a-z]/g, function (val) {
+                    return val.toUpperCase();
+                });
+            };
+            const align = "left";
+            const alignNames = align ? `align${UpperCase(align)}` : undefined;
+            const className = suitClassNames({
+                component: "ComponentName",
+                modifiers: [alignNames]
+            });
+            const classes = className.split(/\s+/);
+            assert.equal(classes.length, 2);
+            assert(classes.indexOf("ComponentName") !== -1);
+            assert(classes.indexOf("ComponentName--alignLeft") !== -1);
+        });
+    });
+
     context("When property has typo", () => {
         it("should throw error", () => {
             assert.throws(() => {
