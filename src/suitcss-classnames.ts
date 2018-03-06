@@ -44,7 +44,7 @@ You can use one of "${ALLOW_KEY_NAMES.join('", "')}" as a key name.
  * }} suitCSSObject
  * @returns {string} class names string. it could be assigned to `class` attribute of element.
  */
-export function suitClassNames(suitCSSObject: SuitCSSObject | null) {
+export function suitClassNames(suitCSSObject: SuitCSSObject) {
     if (suitCSSObject === null) {
         throw new Error("require options object.");
     }
