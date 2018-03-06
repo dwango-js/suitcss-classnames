@@ -16,20 +16,44 @@ Class names builder library compatible for Suit CSS naming conventions.
 `suitCSSObject` is a following object:
 
 ```js
-const SuitCSSObject = {
-    namespace: "",  // class="namespace-Component"
-    descendant: "", // class="Component-descendant"
-    component: "",  // class="Component"
-    modifiers: [] || {},  // class="Component--modifier"
-    states: [] || {},     // class="Component is-state"
-    utilities: [] || {}   // class="u-utility Component"
-};
+export interface SuitCSSObject {
+    /**
+     * class="namespace-Component"
+     */
+    namespace?: string;
+    /**
+     * class="namespace-Component"
+     */
+    descendant?: string;
+    /**
+     * class="Component"
+     */
+    component: string;
+    /**
+     * class="Component--modifier"
+     */
+    modifiers?: string[] | {
+        [index: string]: boolean;
+    };
+    /**
+     * class="Component is-state"
+     */
+    states?: string[] | {
+        [index: string]: boolean;
+    };
+    /**
+     * class="u-utility Component"
+     */
+    utilities?: string[] | {
+        [index: string]: boolean;
+    };
+}
 ```
 
 `component` property is required, other properties is optional.
 
 ```js
-import suitClassNames from "suitcss-classnames";
+import { suitClassNames } from "suitcss-classnames";
 const className = suitClassNames({
     namespace: "ns",
     component: "ComponentName", // <= require
@@ -69,7 +93,7 @@ console.log(classes);
 If you use it in react component, write following pattern:
 
 ```js
-import suitClassNames from "suitcss-classnames";
+import { suitClassNames } from "suitcss-classnames";
 class MyComponent extends React.Component {
     render() {
         const className = suitClassNames({
@@ -93,10 +117,10 @@ class MyComponent extends React.Component {
 `suitcss-classnames` don't throw error, just ignore this.
 
 ```js
-import suitClassNames from "suitcss-classnames";
+import { suitClassNames } from "suitcss-classnames";
 const className = suitClassNames({
     component: "ComponentName",
-    // key alredy has "is-" prefix 
+    // key alredy has "is-" prefix
     states: {
         "is-active": true
     }
@@ -113,7 +137,7 @@ assert(classes.indexOf("is-active") !== -1);
 `suitcss-classnames` don't allowed the key name that except "namespace", "descendant", "component", "modifiers", "states", "utilities".
 
 ```js
-import suitClassNames from "suitcss-classnames";
+import { suitClassNames } from "suitcss-classnames";
 suitClassNames({
     component: "ComponentName",
     // typo => states

@@ -3,12 +3,30 @@
 const ObjectAssign = require("object.assign");
 import classNames = require("classnames");
 export interface SuitCSSObject {
-    namespace?: string,  // class="namespace-Component"
-    descendant?: string, // class="Component-descendant"
-    component: string, // class="Component"
-    modifiers?: string[] | { [index: string]: boolean },  // class="Component--modifier"
-    states?: string[] | { [index: string]: boolean },     // class="Component is-state"
-    utilities?: string[] | { [index: string]: boolean }  // class="u-utility Component"
+    /**
+     * class="namespace-Component"
+     */
+    namespace?: string,
+    /**
+     * class="namespace-Component"
+     */
+    descendant?: string,
+    /**
+     * class="Component"
+     */
+    component: string,
+    /**
+     * class="Component--modifier"
+     */
+    modifiers?: string[] | { [index: string]: boolean },
+    /**
+     * class="Component is-state"
+     */
+    states?: string[] | { [index: string]: boolean },
+    /**
+     * class="u-utility Component"
+     */
+    utilities?: string[] | { [index: string]: boolean }
 }
 // Allowed keyword list
 const ALLOW_KEY_NAMES = ["namespace", "descendant", "component", "modifiers", "states", "utilities"];
