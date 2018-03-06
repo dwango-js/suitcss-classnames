@@ -2,6 +2,9 @@
 "use strict";
 const ObjectAssign = require("object.assign");
 import classNames = require("classnames");
+
+export type SuitCSSProperty = { [index: string]: boolean | undefined | null };
+
 export interface SuitCSSObject {
     /**
      * class="namespace-Component"
@@ -18,15 +21,15 @@ export interface SuitCSSObject {
     /**
      * class="Component--modifier"
      */
-    modifiers?: string[] | { [index: string]: boolean },
+    modifiers?: string[] | SuitCSSProperty,
     /**
      * class="Component is-state"
      */
-    states?: string[] | { [index: string]: boolean },
+    states?: string[] | SuitCSSProperty,
     /**
      * class="u-utility Component"
      */
-    utilities?: string[] | { [index: string]: boolean }
+    utilities?: string[] | SuitCSSProperty
 }
 // Allowed keyword list
 const ALLOW_KEY_NAMES = ["namespace", "descendant", "component", "modifiers", "states", "utilities"];
@@ -96,7 +99,7 @@ suitClassNames({
             return prefix + key;
         }
     };
-    const map = (args: string[] | { [index: string]: boolean; }, prefix: string) => {
+    const map = (args: string[] | SuitCSSProperty, prefix: string) => {
         if (!args) {
             return false;
         }
@@ -111,7 +114,7 @@ suitClassNames({
             }
          */
         if (!Array.isArray(args) && typeof args === "object") {
-            return Object.keys(args).reduce((result: { [index: string]: string | boolean}, key) => {
+            return Object.keys(args).reduce((result: SuitCSSProperty, key) => {
                 const prefixedKey = addPrefix(prefix, key);
                 result[prefixedKey] = args[key];
                 return result;
